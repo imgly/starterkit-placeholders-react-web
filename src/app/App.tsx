@@ -33,6 +33,7 @@ interface AppProps {
 
 export default function App({ config, sceneUrl }: AppProps) {
   const cesdkRef = useRef<CreativeEditorSDK | null>(null);
+  const savedSceneStringRef = useRef<string | null>(null);
   const [role, setRole] = useState<Role>('Creator');
   const [editorKey, setEditorKey] = useState(0);
 
@@ -51,8 +52,18 @@ export default function App({ config, sceneUrl }: AppProps) {
         await initPlaceholdersAdopterEditor(cesdk);
       }
 
-      // Load scene from URL
-      await cesdk.loadFromURL(sceneUrl);
+      // Load scene: restore in-memory snapshot on role switch, otherwise load from URL on first mount
+      const savedScene = savedSceneStringRef.current;
+      if (savedScene) {
+        try {
+          await cesdk.engine.scene.loadFromString(savedScene);
+        } catch {
+          await cesdk.loadFromURL(sceneUrl);
+        }
+        savedSceneStringRef.current = null;
+      } else {
+        await cesdk.loadFromURL(sceneUrl);
+      }
 
       // Zoom auto-fit to page
       cesdk.actions.run('zoom.toPage', { autoFit: true });
@@ -60,8 +71,15 @@ export default function App({ config, sceneUrl }: AppProps) {
     [role, sceneUrl]
   );
 
-  const handleRoleChange = useCallback((newRole: Role) => {
-    // Update role and force re-render of editor
+  const handleRoleChange = useCallback(async (newRole: Role) => {
+    const cesdk = cesdkRef.current;
+    if (cesdk) {
+      try {
+        savedSceneStringRef.current = await cesdk.engine.scene.saveToString();
+      } catch {
+        savedSceneStringRef.current = null;
+      }
+    }
     setRole(newRole);
     setEditorKey((prev) => prev + 1);
   }, []);
