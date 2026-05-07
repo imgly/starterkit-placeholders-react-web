@@ -13,7 +13,7 @@ import { createRoot } from 'react-dom/client';
 import type { Configuration } from '@cesdk/cesdk-js';
 
 import App from './app/App';
-import { resolveAssetPath } from './resolveAssetPath';
+import { resolveAssetPath } from './imgly/resolveAssetPath';
 
 // ============================================================================
 // Configuration
