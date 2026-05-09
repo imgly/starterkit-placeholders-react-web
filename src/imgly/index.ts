@@ -9,7 +9,7 @@
  * @see https://img.ly/docs/cesdk/js/features/placeholders/
  */
 
-import CreativeEditorSDK from '@cesdk/cesdk-js';
+import type CreativeEditorSDK from '@cesdk/cesdk-js';
 
 import {
   BlurAssetSource,
