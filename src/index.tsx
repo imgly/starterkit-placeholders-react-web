@@ -5,7 +5,7 @@
  * Placeholders allow template creators to define editable regions that
  * adopters can fill with their own content.
  *
- * @see https://img.ly/docs/cesdk/starterkits/placeholders-editor/
+ * @see https://img.ly/docs/cesdk/js/features/placeholders/
  */
 
 import { StrictMode } from 'react';
@@ -13,27 +13,34 @@ import { createRoot } from 'react-dom/client';
 import type { Configuration } from '@cesdk/cesdk-js';
 
 import App from './app/App';
-import { resolveAssetPath } from './imgly/resolveAssetPath';
+import { resolveAssetPath } from './resolveAssetPath';
 
 // ============================================================================
-// Configuration
+// Editor Configuration
 // ============================================================================
 
+/**
+ * Static CE.SDK configuration.
+ * Role-specific settings are applied in the init functions.
+ */
 export const editorConfig: Configuration = {
-  // Unique user identifier for analytics (customize for your app)
-  userId: 'starterkit-placeholders-editor-user'
+  userId: 'starterkit-placeholders-user',
 
-  // Local assets (uncomment and set path for self-hosted assets)
-  // baseURL: `/assets/`,
+  // Local assets for development
 
-  // License key (required for production)
-  // license: 'YOUR_LICENSE_KEY',
 };
 
+// ============================================================================
+// Scene URL
+// ============================================================================
+
+/**
+ * Demo scene URL for the placeholders design editor.
+ */
 export const SCENE_URL = resolveAssetPath('/example.scene');
 
 // ============================================================================
-// Initialize React Application
+// React App Bootstrap
 // ============================================================================
 
 const container = document.getElementById('root');

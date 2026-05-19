@@ -9,10 +9,11 @@
  * @see https://img.ly/docs/cesdk/js/features/placeholders/
  */
 
-import CreativeEditorSDK from '@cesdk/cesdk-js';
+import type CreativeEditorSDK from '@cesdk/cesdk-js';
 
 import {
   BlurAssetSource,
+  ImageColorsAssetSource,
   ColorPaletteAssetSource,
   CropPresetsAssetSource,
   DemoAssetSources,
@@ -64,6 +65,7 @@ export async function initPlaceholdersCreatorEditor(cesdk: CreativeEditorSDK) {
   // ============================================================================
 
   await cesdk.addPlugin(new BlurAssetSource());
+  await cesdk.addPlugin(new ImageColorsAssetSource());
   await cesdk.addPlugin(new ColorPaletteAssetSource());
   await cesdk.addPlugin(new CropPresetsAssetSource());
 
@@ -146,6 +148,7 @@ export async function initPlaceholdersAdopterEditor(cesdk: CreativeEditorSDK) {
   // ============================================================================
 
   await cesdk.addPlugin(new BlurAssetSource());
+  await cesdk.addPlugin(new ImageColorsAssetSource());
   await cesdk.addPlugin(new ColorPaletteAssetSource());
   await cesdk.addPlugin(new CropPresetsAssetSource());
 
