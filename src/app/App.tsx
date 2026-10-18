@@ -42,6 +42,8 @@ export default function App({ config, sceneUrl }: AppProps) {
     async (cesdk: CreativeEditorSDK) => {
       cesdkRef.current = cesdk;
 
+      // Debug access (remove in production)
+      (window as any).cesdk = cesdk;
 
       // Initialize with role-specific configuration
       // Each role uses a different config and runtime APIs
